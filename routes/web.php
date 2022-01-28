@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Categoria\ShowCategoria;
 use App\Http\Livewire\Categoria\CreateCategoria;
+use App\Http\Livewire\Categoria\EditCategoria;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/categoria', ShowCategoria::class)->name('categoria.index');
 Route::middleware(['auth:sanctum', 'verified'])->get('/categoria/create', CreateCategoria::class)->name('categoria.create');
+Route::middleware(['auth:sanctum', 'verified'])->get('/categoria/edit/{id}', EditCategoria::class)->name('categoria.edit');

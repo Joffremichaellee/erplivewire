@@ -6,8 +6,12 @@ use App\Models\Categoria;
 
 use Livewire\Component;
 
+use Livewire\WithPagination;
+
 class ShowCategoria extends Component
 {
+
+    use WithPagination;
 
     public $search;
     public $sort = 'id';
@@ -15,16 +19,26 @@ class ShowCategoria extends Component
     public $estado;
     public $open = false;
 
-    protected $listeners = ['render' => 'render'];
+    public $nombre;
+    public $descripcion;
+    public $image;
+
+    protected $listeners = ['render' => 'render', 'eliminar'];
+
+    public function updatingSearch(){
+        $this->resetPage();
+    }
 
     public function render()
     {
         $categorias = Categoria::where('nombre','like','%'.$this->search.'%')
                                 ->orWhere('descripcion','like','%'.$this->search.'%')
-                                ->orderBy($this->sort, $this->direction)->get();
+                                ->orderBy($this->sort, $this->direction)
+                                ->paginate(10);
                                 
 
-        return view('livewire.categoria.show-categoria', compact('categorias'));
+        return view('livewire.categoria.show-categoria', compact('categorias')) 
+        ->layout('layouts.paneldos');
     }
 
 
@@ -40,26 +54,27 @@ class ShowCategoria extends Component
 
         }
         
-
-        
     }
 
     public function activar($id)
     {
-//|1        if (!$request->ajax()) return redirect('/');
+        // if (!$request->ajax()) return redirect('/');
         $categoria = Categoria::findOrFail($id);
         $categoria->estado = 0;
-        $categoria->save();
-        
+        $categoria->save(); 
     }
 
     public function desactivar($id)
     {
-//|1        if (!$request->ajax()) return redirect('/');
+        // if (!$request->ajax()) return redirect('/');
         $categoria = Categoria::findOrFail($id);
         $categoria->estado = 1;
         $categoria->save();
-        
+    }
+
+    public function eliminar(Categoria $categoria)
+    {
+        $categoria->delete();
     }
 
 }

@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden sm:rounded-lg">
                 <div class="intro-y flex items-center mt-8">
-                    <h2 class="text-lg font-medium mr-auto">Nueva Categoria</h2>
+                    <h2 class="text-lg font-medium mr-auto">Editar Categoria</h2>
                 </div>
                 <div class="grid grid-cols-12 gap-6 mt-5">
                     <div class="intro-y col-span-12 lg:col-span-6">
@@ -29,7 +29,7 @@
                                             <label for="nombre" class="form-label w-full flex flex-col sm:flex-row">
                                                 Nombre <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600">Required, nombre 2 characters</span>
                                             </label>
-                                            <input type="text" name="nombre" wire:model="nombre" id="nombre" class="form-control" placeholder="Nombre">
+                                            <input type="text" name="nombre"  wire:model="nombre" id="nombre" class="form-control" placeholder="Nombre">
                                         </div>
 
                                         <x-jet-input-error for="nombre" />
@@ -46,11 +46,15 @@
                                                 Image
                                             </label>
                                             <input type="file" name="image" wire:model="image" id="image">
+
+                                            <div class="w-20 h-20 image-fit zoom-in mt-5">
+                                                <img alt="Tinker Tailwind HTML Admin Template" class="tooltip rounded-full" src="{{ ($categoria->image) }}" title="Uploaded at 23 December 2022">
+                                            </div>
                                         </div>
                                         <x-jet-input-error for="image" />
                                         
                                         <a href="{{ route('categoria.index') }}" type="button" class="btn btn-outline-secondary rounded-full mr-1">Cancel</a>
-                                        <button wire:click="agregar"  class="btn btn-primary rounded-full mt-5">Agregar</button>
+                                        <button wire:click="editar({{$categoria->id}})"  class="btn btn-primary rounded-full mt-5">Agregar</button>
 
                                     <!-- END: Validation Form -->
                                 </div>

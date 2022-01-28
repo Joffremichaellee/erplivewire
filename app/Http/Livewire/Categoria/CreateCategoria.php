@@ -20,6 +20,14 @@ class CreateCategoria extends Component
     public $image;
     //public $open = false;
 
+    public function render()
+    {
+                                
+
+        return view('livewire.categoria.create-categoria') 
+        ->layout('layouts.paneldos');
+    }
+
     protected $rules = [
         'nombre' => 'required|max:50|min:2',
         'image' => 'required|image',
